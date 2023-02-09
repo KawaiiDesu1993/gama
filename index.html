@@ -7,19 +7,10 @@
     <title>My project</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
-
-    <!-- Yandex Games SDK -->
-    <script src="https://yandex.ru/games/sdk/v2"></script>
-
-
-
-
-
-
-
-
-
-
+    <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+    <script>
+      vkBridge.send("VKWebAppInit", {});
+    </script>
 </head>
 <body class="dark">
 <div id="unity-container" class="unity-desktop">
