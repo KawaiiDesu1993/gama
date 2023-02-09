@@ -8,6 +8,13 @@
   <body style="text-align: center; padding: 0; border: 0; margin: 0;">
     <canvas id="unity-canvas" width=960 height=600 style="width: 960px; height: 600px; background: #231F20"></canvas>
     <script src="Build/gipvk.loader.js"></script>
+
+    <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+
+    <script>
+        vkBridge.send("VKWebAppInit", {});
+    </script>
+
     <script>
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         // Mobile device style: fill the whole browser client area with the game canvas:
@@ -24,6 +31,7 @@
         document.body.style.textAlign = "left";
       }
 
+
       createUnityInstance(document.querySelector("#unity-canvas"), {
         dataUrl: "Build/gipvk.data.unityweb",
         frameworkUrl: "Build/gipvk.framework.js.unityweb",
@@ -35,6 +43,12 @@
         // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
         // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
       });
+
+       function showFullscrenAd(){
+        vkBridge.send('VKWebAppShowNativeAds',{ad_format:"interstitial"}).then(data => {
+          console.log(data);});
+      }
+
     </script>
   </body>
 </html>
