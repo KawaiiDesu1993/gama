@@ -9,27 +9,6 @@
     <canvas id="unity-canvas" width=960 height=600 style="width: 960px; height: 600px; background: #231F20"></canvas>
     <script src="Build/gipvk.loader.js"></script>
 
-    <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
-
-    <script>
-        vkBridge.send("VKWebAppInit", {});
-    </script>
-
-    <script>
-        vkBridge.send('VKWebAppCheckNativeAds', { ad_format: 'interstitial'});
-
-        vkBridge.send('VKWebAppShowNativeAds', { ad_format: 'interstitial' 
-          })
-            .then((data) => {
-                if (data.result)
-                    console.log('Реклама показана');
-                 else
-                    console.log('Ошибка при показе');
-             })
-             .catch((error) => { console.log(error); /* Ошибка */ });
-    </script>
-
-
 
     <script>
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
@@ -59,5 +38,20 @@
         // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
       });
     </script>
+
+    <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+
+    <script type="text/javascript">
+
+        vkBridge.send('VKWebAppInit');
+
+          function showFullscrenAd(){
+            vkBridge.send('VKWebAppShowNativeAds',{ad_format:"interstitial"}).then(data => {
+              console.log(data);});
+          }
+
+
+    </script>
+
   </body>
 </html>
