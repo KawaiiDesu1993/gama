@@ -16,8 +16,20 @@
     </script>
 
     <script>
-    vkBridge.send('VKWebAppCheckNativeAds', { ad_format: 'interstitial'});
+        vkBridge.send('VKWebAppCheckNativeAds', { ad_format: 'interstitial'});
+
+        vkBridge.send('VKWebAppShowNativeAds', { ad_format: 'interstitial' 
+          })
+            .then((data) => {
+                if (data.result)
+                    console.log('Реклама показана');
+                 else
+                    console.log('Ошибка при показе');
+             })
+             .catch((error) => { console.log(error); /* Ошибка */ });
     </script>
+
+
 
     <script>
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
@@ -35,16 +47,6 @@
         document.body.style.textAlign = "left";
       }
 
-      vkBridge.send('VKWebAppShowNativeAds', { ad_format: 'interstitial' 
-      })
-        .then((data) => {
-            if (data.result)
-                console.log('Реклама показана');
-             else
-                console.log('Ошибка при показе');
-         })
-         .catch((error) => { console.log(error); /* Ошибка */ });
-
       createUnityInstance(document.querySelector("#unity-canvas"), {
         dataUrl: "Build/gipvk.data.unityweb",
         frameworkUrl: "Build/gipvk.framework.js.unityweb",
@@ -53,14 +55,9 @@
         companyName: "DefaultCompany",
         productName: "My project",
         productVersion: "0.0.0.1",
-
-
-
         // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
         // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
       });
-      }
-
     </script>
   </body>
 </html>
