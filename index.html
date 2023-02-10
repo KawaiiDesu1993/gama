@@ -42,9 +42,16 @@
 
     <script type="text/javascript">
 
-        vkBridge.send('VKWebAppInit');
+        vkBridge.send("VKWebAppInit", {});
 
         vkBridge.send('VKWebAppCheckNativeAds', { ad_format: 'interstitial'});
+          .then((data) => {
+            if (data.result) {
+              } else {
+                console.log('Рекламные материалы не найдены.');
+              }
+          })
+          .catch((error) => { console.log(error); /* Ошибка */  });
 
         bridge.send('VKWebAppShowNativeAds', { ad_format: 'interstitial' 
         })
@@ -55,11 +62,6 @@
               console.log('Ошибка при показе');
           })
           .catch((error) => { console.log(error); /* Ошибка */ });
-
-        function showFullscrenAd(){
-            vkBridge.send('VKWebAppShowNativeAds',{ad_format:"interstitial"}).then(data => {
-            console.log(data);});
-        }
     </script>
   </body>
 </html>
