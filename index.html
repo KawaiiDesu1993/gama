@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <link rel="stylesheet" type="text/css" href="./instant-games-bridge-vk-banner-extension.css">
+        <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
         <title>My project</title>
         <style>
             html, body {
@@ -57,7 +58,6 @@
         </div>
         <script src="./instant-games-bridge.js"></script>
         <script src="./instant-games-bridge-vk-banner-extension.js"></script>
-        <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
         <script>
             if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
                 let meta = document.createElement('meta')
@@ -166,24 +166,19 @@
                 })
                 .catch(error => console.error(error))
             
-            <script>
-                vkBridge
-                    .send('VKWebAppInit')
-                    .then(() => {
-                        // show banner
-                        vkBridge
-                            .send('VKWebAppGetAds')
-                            .then(data => {
-                                let position = 'top' // Supported values: top, bottom. Default: bottom.
-                                let colorScheme = 'light' // Supported values: light, dark. Default: light.
-                                bridgeExtensions.vk.banner.show(data, position, colorScheme)
-                            })
 
-                        // hide banner
-                        bridgeExtensions.vk.banner.hide()
-                    })
-            </script>
+            bridge.send("VKWebAppInit", {});
 
+            bridge.send('VKWebAppCheckNativeAds', { ad_format: 'interstitial'});
+
+            bridge.send('VKWebAppShowNativeAds', { ad_format: 'interstitial' })
+              .then((data) => {
+                if (data.result)
+                  console.log('Реклама показана');
+                else
+                  console.log('Ошибка при показе');
+              })
+              .catch((error) => { console.log(error); /* Ошибка */ });
 
 
             // platform
