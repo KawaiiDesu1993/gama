@@ -9,7 +9,6 @@
     <canvas id="unity-canvas" width=960 height=600 style="width: 960px; height: 600px; background: #231F20"></canvas>
     <script src="Build/gipvk.loader.js"></script>
 
-
     <script>
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         // Mobile device style: fill the whole browser client area with the game canvas:
@@ -45,13 +44,22 @@
 
         vkBridge.send('VKWebAppInit');
 
-          function showFullscrenAd(){
+        vkBridge.send('VKWebAppCheckNativeAds', { ad_format: 'interstitial'});
+
+        bridge.send('VKWebAppShowNativeAds', { ad_format: 'interstitial' 
+        })
+          .then((data) => {
+            if (data.result)
+              console.log('Реклама показана');
+            else
+              console.log('Ошибка при показе');
+          })
+          .catch((error) => { console.log(error); /* Ошибка */ });
+
+        function showFullscrenAd(){
             vkBridge.send('VKWebAppShowNativeAds',{ad_format:"interstitial"}).then(data => {
-              console.log(data);});
-          }
-
-
+            console.log(data);});
+        }
     </script>
-
   </body>
 </html>
